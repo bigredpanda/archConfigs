@@ -1,0 +1,330 @@
+###############################
+#                             #
+#   Configuring i3            #
+#                             #
+###############################
+
+
+###############################
+#   Autostart                 #
+###############################
+
+# менеджер питания (для уведомлений о разряженной батареи)
+exec --no-startup-id xfce4-power-manager
+
+# prevent sleep
+exec --no-startup-id xset s off
+exec --no-startup-id xset dpms 0 0 0
+
+# wallpaper
+exec --no-startup-id feh --bg-scale ~/.i3/wp.jpg
+
+# установка раскладки клавиатуры и ее переключения
+exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:alt_shift_toggle'
+
+# апплет сетевых подключений
+# exec --no-startup-id nm-applet
+
+# отображение и переключение раскладок клавиатуры
+# exec --no-startup-id gxkb
+
+# композитный менеджер
+exec --no-startup-id compton -CGb --backend glx --vsync opengl --paint-on-overlay
+
+# менеджер bluetooth соединений
+exec --no-startup-id blueman-applet
+
+# менеджер буфера обмена
+exec --no-startup-id clipit
+
+
+# startup volume
+# exec pulseaudio
+# exec amixer set Master playback 50%
+# startup backlight
+# exec --no-startup-id xbacklight -set 60 &
+
+###############################
+#   Variables                 #
+###############################
+set $mod Mod4
+set $terminal xfce4-terminal
+
+###############################
+#   Fonts                     #
+###############################
+# font pango:Terminus 8
+font pango:DejaVu Sans Mono 10
+
+###############################
+#   The floating modifier     #
+###############################
+floating_modifier $mod
+
+###############################
+#   Border style              #
+###############################
+new_window  pixel 1
+new_float   pixel 1
+hide_edge_borders both
+
+#gaps inner 0
+#gaps outer 0
+
+popup_during_fullscreen smart
+focus_follows_mouse yes
+
+###############################
+#   Colors                    #
+###############################
+# border, background, text and indicator color for a window decorations
+client.focused          #37474F #37474F #ECEFF1 #455A64
+client.focused_inactive #1d1f21 #1d1f21 #ECEFF1 #37474F
+client.unfocused        #1d1f21 #1d1f21 #ECEFF1 #37474F
+client.urgent           #C62828 #C62828 #FFEBEE #D32F2F
+client.placeholder      #1d1f21 #1d1f21 #ECEFF1 #37474F
+
+
+###############################
+#   Program Workspaces        #
+###############################
+# check class with "xprop"
+
+assign [class="Firefox"] Firefox
+assign [class="google-chrome"] 1
+assign [class="jetbrains-phpstorm"] 3
+assign [class="Skype"] 10
+
+assign [class="Subl3"] 4
+assign [class="Spotify"] 9
+
+###############################
+#   Keyboard bindings         #
+###############################
+
+# поместить текущее окнов лимб (scratchpad)
+bindsym $mod+Shift+minus move scratchpad
+
+# показать окно из лимба
+bindsym $mod+minus scratchpad show
+
+# ALT-TAB
+bindsym Mod1+Tab workspace back_and_forth
+
+# start a terminal
+bindsym $mod+Return exec --no-startup-id $terminal --hide-menubar
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec --no-startup-id dmenu_run -z -fn '-*-ubuntu mono-medium-r-*-*-25-*-*-*-*-*-*-*' -sb '#005544' -sf '#D5A500'
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*'"
+# bindsym $mod+Shift+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*' -sb '#005544' -sf '#D5A500'"
+
+# start rofi (a program launcher)
+# bindsym $mod+Shift+d exec rofi -show drun -lines 5 -fullscreen -padding 250 -opacity 95 -font "System San Francisco Display 18"
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+colon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+bindsym $mod+Shift+w exec --no-startup-id $terminal --hide-menubar on workspace 4
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# change keyboard layout
+bindsym $mod+Ctrl+1 exec --no-startup-id ~/.i3/.my/keyboard
+bindsym $mod+Ctrl+2 exec --no-startup-id setxkbmap us -variant dvorak
+#bindsym $mod+Ctrl+3 exec --no-startup-id setxkbmap ua
+
+# Volume buttons
+bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master playback 3%- unmute
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master playback 3%+ unmute
+
+bindsym $mod+F7 exec --no-startup-id amixer set Master playback 3%- unmute
+bindsym $mod+F8 exec --no-startup-id amixer set Master playback 3%+ unmute
+
+
+# sound shortcuts
+bindsym XF86TouchpadToggle exec --no-startup-id ~/.i3/.my/touchpad.sh 
+bindsym XF86AudioPlay exec --no-startup-id ~/.i3/.my/audiocontrols.sh play
+bindsym XF86AudioStop exec --no-startup-id ~/.i3/.my/audiocontrols.sh stop 
+bindsym XF86AudioNext exec --no-startup-id ~/.i3/.my/audiocontrols.sh next
+bindsym XF86AudioPrev exec --no-startup-id ~/.i3/.my/audiocontrols.sh prev
+# bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+ unmute
+# bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%- unmute
+# bindsym XF86AudioMute exec --no-startup-id amixer set Master mute
+bindsym XF86Calculator exec --no-startup-id gnome-calculator
+bindsym XF86Mail exec --no-startup-id gsimplecal
+bindsym XF86WWW exec --no-startup-id killall gsimplecal
+
+bindsym $mod+n exec --no-startup-id nm-applet
+bindsym $mod+t border toggle
+
+# Backlight buttons
+# xbacklight
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+
+bindsym $mod+c exec --no-startup-id Thunar
+
+#####################################################
+#                                                   #
+#   Set shut down, restart and locking features     #
+#                                                   #
+#####################################################
+
+# locker shortcut
+#bindsym $mod+b exec --no-startup-id i3lock -c 000000
+bindsym $mod+b exec --no-startup-id ~/.i3/i3lock
+
+bindsym $mod+Shift+e mode "$mode_system"
+set $mode_system (e)xit, (s)uspend, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym s exec --no-startup-id ~/.i3/i3exit suspend, mode "default"
+    bindsym e exec --no-startup-id ~/.i3/i3exit logout, mode "default"
+    bindsym r exec --no-startup-id ~/.i3/i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.i3/i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Выйти?' -b 'Да' 'i3-msg exit'"
+# bindsym $mod+Shift+s exec --no-startup-id "i3-nagbar -t warning -m 'Спать?' -b 'Да' 'systemctl suspend'"
+
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Ты нажал выход из системы. Ты действительно хочешь выйти?' -b 'Да, выйти' 'i3-msg exit'"
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    font pango: System San Francisco Display, FontAwesome 11
+    position top
+    status_command ~/.i3/conky-i3bar_top
+    tray_padding 2
+    separator_symbol "❱"
+    binding_mode_indicator yes
+    colors {
+        background #000000
+        statusline #9944ff
+        focused_workspace  #ddd399 #492b2b
+        active_workspace   #492b2b #492b2b 
+        inactive_workspace #617361 #443344 
+        urgent_workspace   #2f343a #900000 
+        binding_mode       #B589ff #402519
+
+    #    urgent_workspace   #000000 #000000 
+    }
+}
+
+#bar {
+#    position bottom
+#    status_command ~/.i3/conky-i3bar
+#    workspace_buttons no
+#    tray_output       none
+#    mode hide
+#}
